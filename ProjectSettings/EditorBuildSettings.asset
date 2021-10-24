@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PlatAndTile.unity
     guid: 546364e558e559a419de994903960856
+  - enabled: 1
+    path: Assets/Scenes/Challenge2_PlatAndTile.unity
+    guid: b532fef3844bb87469c4360aa34ca7f9
   m_configObjects: {}

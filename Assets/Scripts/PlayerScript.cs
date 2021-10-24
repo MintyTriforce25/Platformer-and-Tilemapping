@@ -6,15 +6,20 @@ using UnityEngine.UI;
 public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D rd2d;
-    public float speed;
-    public Text score;
-    private int scoreValue = 0;
-    
+    public float speed = 0;
+    public Text scoreText;
+
+    private int scoreValue = 0;  
+    public Text livesText;
+    private int livesValue = 3;
+    public Text winText;
     // Start is called before the first frame update
     void Start()
     {
         rd2d = GetComponent<Rigidbody2D>();
-        score.text = scoreValue.ToString();
+        scoreText.text = "Score:" + scoreValue.ToString();
+        livesText.text = "Lives:" + livesValue.ToString();
+        winText.text = "";
     }
 
     // Update is called once per frame
@@ -29,17 +34,31 @@ public class PlayerScript : MonoBehaviour
           Application.Quit();
         }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
        if (collision.collider.tag == "Coin")
         {
             scoreValue += 1;
-            score.text = scoreValue.ToString();
+            scoreText.text = "Score:" + scoreValue.ToString();
             Destroy(collision.collider.gameObject);
         }
+       if (scoreValue == 4) 
+        {
+           scoreText.text = "Score: " + scoreValue.ToString();
+            Destroy(this);
+            winText.text = "You Win! This game was created by Anique(MintyTriforce25).";
+        }
+      
     }
-
+    private void OnCollisionEnter2D(Collider other)
+    {
+        if (gameObject.CompareTag("Enemy"))
+        {
+            livesValue -= 1;
+            livesText.text = "Lives:" + livesValue.ToString();
+            SetLivesText();
+        }
+    }
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.tag == "Ground")
@@ -50,4 +69,13 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+void SetLivesText()
+{
+    livesText.text = "Lives: " + livesValue.ToString();
+        if (livesValue <= 0)
+        {
+            Destroy(this);
+            winText.text = "Sorry, you lost! Better luck next time?";
+        }
+}
 }
